@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "e1066231-3579-4e9f-9bc7-13c6ebbe9046",
+		"name": "SplitIt API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20037687",
+		"_collection_link": "https://lively-crater-953890.postman.co/workspace/My-Workspace~06891ad2-b540-4474-8713-9f049bc23d00/collection/20037687-e1066231-3579-4e9f-9bc7-13c6ebbe9046?action=share&source=collection_link&creator=20037687"
+	},
+	"item": [
+		{
+			"name": "1. Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"sandip\",\n  \"password\": \"pass\",\n  \"email\": \"sandip@example.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/accounts/register/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"accounts",
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Login (JWT)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"paras\",\n  \"password\": \"pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/token/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"token",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Create Occasion",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NzM0NTE4LCJpYXQiOjE3NDc3MzI3MTgsImp0aSI6IjEzNmYwMjEwOTE1MzRiMzk5NTZjNmM0ZWE3MGI5ZWE3IiwidXNlcl9pZCI6Mn0.kpzXQF6HphAIfq0wbkx7L3noRg8GTxT9A7rDFLVUKXU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Trip to Goa\",\n  \"members\": [\"paras\", \"raj\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/occasions/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"occasions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Create event With occassion",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NzMxODU5LCJpYXQiOjE3NDc3MzAwNTksImp0aSI6ImU4M2FhMGMwMzliNjRhN2M5MmI3MDI5MGM2ODI4Y2M2IiwidXNlcl9pZCI6Mn0.82LeQcYdTf9RwnMHXQZOcvKIZYc8ucD5LJBOyW6f7KQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Dinner\",\n    \"amount\": 2100,\n    \"payer\": \"paras\",\n    \"occasion\": \"Trip to Goa\",\n    \"utilizations\": [\n        {\"utilizer\": \"paras\", \"amount\": 1200},\n        {\"utilizer\": \"raj\", \"amount\": 600},\n        {\"utilizer\": \"sandip\", \"amount\": 500}\n    ]\n    //   \"utilizers\": [\"paras\", \"raj\", \"sandip\"]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/events/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Create event equal split",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NzIwODI4LCJpYXQiOjE3NDc3MTkwMjgsImp0aSI6ImIwYzFkYTRmZjk1ZDRlMjBhOGU3NjMyYTliZTNlZmJlIiwidXNlcl9pZCI6Mn0.h9n9sItwKs_ZchJFRcojmRiy3Tsr-49ozqxzYpOVVAQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Drinks\",\n  \"amount\": 1000,\n  \"payer\": \"raj\",\n//   \"utilizers\": [\"paras\", \"raj\", \"sandip\"],\n  \"occasion\":\"Trip to Goa\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/events/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Create event no Occasion",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NjY1NzcwLCJpYXQiOjE3NDc2MzU3NzAsImp0aSI6ImZhNjM0MzUzZDc0MDRmNDY4ZTQxYzQ3OTM4YjEwNzBmIiwidXNlcl9pZCI6MX0.eTDAyWH7FEsDJKoaYlul9ycka5PWopsZ_-iUjhR0VwA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Office Pizza\",\n  \"amount\": 900,\n  \"payer\": \"paras\",\n  \"utilizations\": [\n    {\"utilizer\": \"paras\", \"amount\": 300},\n    {\"utilizer\": \"raj\", \"amount\": 300},\n    {\"utilizer\": \"sandip\", \"amount\": 300}\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/events/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. Clear expense",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NzQwNjg1LCJpYXQiOjE3NDc3MTA2ODUsImp0aSI6IjJkOTBkMjBkN2EyMzQwNDg4ZmJkOTNjYzVhYWIzOGEyIiwidXNlcl9pZCI6MX0.AlOXoxVMYCdXdYfFX25H9wCDPIGlQhe6hcGYzwDxqBg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"payer\": \"raj\",\n  \"receiver\": \"paras\",\n  \"amount\": 1000,\n  \"occasion\": \"Trip to Goa\"\n}\n"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/payments/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"payments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. Occasion expenditre summary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ3NzM0NTE4LCJpYXQiOjE3NDc3MzI3MTgsImp0aSI6IjEzNmYwMjEwOTE1MzRiMzk5NTZjNmM0ZWE3MGI5ZWE3IiwidXNlcl9pZCI6Mn0.kpzXQF6HphAIfq0wbkx7L3noRg8GTxT9A7rDFLVUKXU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{base_url}}/api/occasion-summary/Trip to Goa/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"occasion-summary",
+						"Trip to Goa",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000"
+		},
+		{
+			"key": "access_token",
+			"value": ""
+		}
+	]
+}
